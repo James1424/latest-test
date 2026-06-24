@@ -23,7 +23,7 @@ The README is automatically regenerated from the CSV outputs. For each momentum 
 
 The full monthly decision-level data is saved in `output/momentum_grid_detail.csv`.
 
-Last updated: **2026-06-24 03:16 UTC**
+Last updated: **2026-06-24 04:41 UTC**
 
 ## Method
 
@@ -44,7 +44,7 @@ If a component change happens after a monthly decision date, that change is not 
 
 Data source for constituents and component changes: `https://en.wikipedia.org/wiki/Nasdaq-100`.
 
-**Interpretation note.** This point-in-time version can differ from a static-current-universe backtest. If a stock was added to the Nasdaq-100 after a decision date, it is excluded from that month even if it has strong momentum. This avoids look-ahead bias, but it also means results will not exactly match older projects that used today’s Nasdaq-100 list for all historical months.
+**Interpretation note.** This point-in-time version can differ from a static-current-universe backtest. If a stock was added to the Nasdaq-100 after a decision date, it is excluded from that month even if it has strong momentum. This avoids look-ahead bias, but it also means results will not exactly match older projects that used today's Nasdaq-100 list for all historical months.
 
 - Current Nasdaq-100 tickers saved: **101**
 - Component-change rows saved: **225**
@@ -69,7 +69,9 @@ Data source for constituents and component changes: `https://en.wikipedia.org/wi
 
 ### Backtest Yearly Compounded Returns
 
-The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.
+The table below uses non-overlapping compounding paths starting from January.
+Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions.
+The current year is labelled YTD when it is incomplete.
 
 | Year       | Top 1 Hold 1M   | Top 1 Hold 2M   | Top 1 Hold 3M   | Top 2 Hold 1M   | Top 2 Hold 2M   | Top 2 Hold 3M   | Top 3 Hold 1M   | Top 3 Hold 2M   | Top 3 Hold 3M   |
 |:-----------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|
@@ -117,22 +119,22 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Latest Top-3 Monthly Selections
 
-This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.
+This table shows the latest Top-3 monthly selections, their momentum values, and the realized 1M / 2M / 3M holding returns for each selected stock.
 
-| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 Return   | Top 2   | Top 2 Momentum   | Top 2 Return   | Top 3   | Top 3 Momentum   | Top 3 Return   | Avg Momentum   | Portfolio Hold 1M Return   |
-|:-----------------|:----------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:---------------|:---------------------------|
-| 2025-06          | 2025-06-02      | PLTR    | 17.45%           | -1.03%         | ZS      | 16.18%           | 4.82%          | MSTR    | 14.74%           | 0.28%          | 16.13%         | 1.36%                      |
-| 2025-07          | 2025-07-01      | AVGO    | 16.61%           | 9.03%          | PLTR    | 16.61%           | 18.05%         | ZS      | 15.62%           | -8.80%         | 16.28%         | 6.09%                      |
-| 2025-08          | 2025-08-01      | AMD     | 21.16%           | -5.46%         | TTD     | 18.78%           | -37.06%        | NVDA    | 16.00%           | -1.69%         | 18.65%         | -14.74%                    |
-| 2025-09          | 2025-09-02      | AMD     | 13.14%           | 1.04%          | SHOP    | 9.42%            | 7.57%          | SNPS    | 8.73%            | -17.44%        | 10.43%         | -2.94%                     |
-| 2025-10          | 2025-10-01      | APP     | 28.61%           | -10.22%        | WBD     | 24.82%           | 15.19%         | INTC    | 19.44%           | 9.91%          | 24.29%         | 4.96%                      |
-| 2025-11          | 2025-11-03      | MU      | 31.88%           | 2.45%          | INTC    | 27.91%           | 1.29%          | WBD     | 24.00%           | 7.09%          | 27.93%         | 3.61%                      |
-| 2025-12          | 2025-12-01      | WBD     | 29.60%           | 19.44%         | MU      | 28.37%           | 31.23%         | INTC    | 19.88%           | -1.57%         | 25.95%         | 16.36%                     |
-| 2026-01          | 2026-01-02      | MU      | 20.87%           | 38.80%         | AMD     | 14.88%           | 10.20%         | WBD     | 13.91%           | -3.47%         | 16.55%         | 15.18%                     |
-| 2026-02          | 2026-02-02      | MU      | 24.16%           | -5.74%         | WDC     | 20.78%           | -0.06%         | STX     | 19.67%           | -12.34%        | 21.54%         | -6.05%                     |
-| 2026-03          | 2026-03-02      | MU      | 21.43%           | -10.82%        | WDC     | 19.59%           | 10.29%         | LRCX    | 15.12%           | -3.78%         | 18.71%         | -1.44%                     |
-| 2026-04          | 2026-04-01      | WDC     | 18.07%           | 44.94%         | STX     | 16.64%           | 71.80%         | ARM     | 11.40%           | 36.18%         | 15.37%         | 50.97%                     |
-| 2026-05          | 2026-05-01      | INTC    | 35.40%           | 9.75%          | MRVL    | 29.81%           | 33.03%         | ARM     | 25.73%           | 93.60%         | 30.31%         | 45.46%                     |
+| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 1M Return   | Top 1 2M Return   | Top 1 3M Return   | Top 2   | Top 2 Momentum   | Top 2 1M Return   | Top 2 2M Return   | Top 2 3M Return   | Top 3   | Top 3 Momentum   | Top 3 1M Return   | Top 3 2M Return   | Top 3 3M Return   | Avg Momentum   |
+|:-----------------|:----------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:---------------|
+| 2025-06          | 2025-06-02      | PLTR    | 17.45%           | -1.03%            | 16.84%            | 18.97%            | ZS      | 16.18%           | 4.82%             | -4.40%            | -6.35%            | MSTR    | 14.74%           | 0.28%             | -1.52%            | -8.23%            | 16.13%         |
+| 2025-07          | 2025-07-01      | AVGO    | 16.61%           | 9.03%             | 12.65%            | 26.15%            | PLTR    | 16.61%           | 18.05%            | 20.21%            | 41.53%            | ZS      | 15.62%           | -8.80%            | -10.66%           | -0.91%            | 16.28%         |
+| 2025-08          | 2025-08-01      | AMD     | 21.16%           | -5.46%            | -4.48%            | 51.22%            | TTD     | 18.78%           | -37.06%           | -42.70%           | -42.94%           | NVDA    | 16.00%           | -1.69%            | 7.79%             | 19.09%            | 18.65%         |
+| 2025-09          | 2025-09-02      | AMD     | 13.14%           | 1.04%             | 59.96%            | 35.39%            | SHOP    | 9.42%            | 7.57%             | 24.38%            | 7.36%             | SNPS    | 8.73%            | -17.44%           | -24.71%           | -25.97%           | 10.43%         |
+| 2025-10          | 2025-10-01      | APP     | 28.61%           | -10.22%           | -11.43%           | -12.18%           | WBD     | 24.82%           | 15.19%            | 23.36%            | 47.34%            | INTC    | 19.44%           | 9.91%             | 11.32%            | 9.57%             | 24.29%         |
+| 2025-11          | 2025-11-03      | MU      | 31.88%           | 2.45%             | 34.45%            | 86.61%            | INTC    | 27.91%           | 1.29%             | -0.30%            | 23.57%            | WBD     | 24.00%           | 7.09%             | 27.90%            | 23.46%            | 27.93%         |
+| 2025-12          | 2025-12-01      | WBD     | 29.60%           | 19.44%            | 15.29%            | 19.40%            | MU      | 28.37%           | 31.23%            | 82.14%            | 71.69%            | INTC    | 19.88%           | -1.57%            | 21.99%            | 13.72%            | 25.95%         |
+| 2026-01          | 2026-01-02      | MU      | 20.87%           | 38.80%            | 30.83%            | 16.67%            | AMD     | 14.88%           | 10.20%            | -11.12%           | -5.93%            | WBD     | 13.91%           | -3.47%            | -0.04%            | -3.58%            | 16.55%         |
+| 2026-02          | 2026-02-02      | MU      | 24.16%           | -5.74%            | -15.94%           | 23.90%            | WDC     | 20.78%           | -0.06%            | 10.23%            | 59.76%            | STX     | 19.67%           | -12.34%           | -2.10%            | 68.19%            | 21.54%         |
+| 2026-03          | 2026-03-02      | MU      | 21.43%           | -10.82%           | 31.45%            | 151.03%           | WDC     | 19.59%           | 10.29%            | 59.85%            | 102.33%           | LRCX    | 15.12%           | -3.78%            | 11.27%            | 37.45%            | 18.71%         |
+| 2026-04          | 2026-04-01      | WDC     | 18.07%           | 44.94%            | 83.45%            |                   | STX     | 16.64%           | 71.80%            | 117.73%           |                   | ARM     | 11.40%           | 36.18%            | 163.66%           |                   | 15.37%         |
+| 2026-05          | 2026-05-01      | INTC    | 35.40%           | 9.75%             |                   |                   | MRVL    | 29.81%           | 33.03%            |                   |                   | ARM     | 25.73%           | 93.60%            |                   |                   | 30.31%         |
 
 _Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._
 
@@ -140,7 +142,9 @@ _Note: The ranking is still recomputed using the Nasdaq-100 universe effective a
 
 ### Backtest Yearly Compounded Returns
 
-The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.
+The table below uses non-overlapping compounding paths starting from January.
+Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions.
+The current year is labelled YTD when it is incomplete.
 
 | Year       | Top 1 Hold 1M   | Top 1 Hold 2M   | Top 1 Hold 3M   | Top 2 Hold 1M   | Top 2 Hold 2M   | Top 2 Hold 3M   | Top 3 Hold 1M   | Top 3 Hold 2M   | Top 3 Hold 3M   |
 |:-----------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|
@@ -188,22 +192,22 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Latest Top-3 Monthly Selections
 
-This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.
+This table shows the latest Top-3 monthly selections, their momentum values, and the realized 1M / 2M / 3M holding returns for each selected stock.
 
-| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 Return   | Top 2   | Top 2 Momentum   | Top 2 Return   | Top 3   | Top 3 Momentum   | Top 3 Return   | Avg Momentum   | Portfolio Hold 1M Return   |
-|:-----------------|:----------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:---------------|:---------------------------|
-| 2025-06          | 2025-06-02      | PLTR    | 13.00%           | -1.03%         | ZS      | 10.74%           | 4.82%          | MELI    | 8.45%            | -3.55%         | 10.73%         | 0.08%                      |
-| 2025-07          | 2025-07-01      | ZS      | 13.34%           | -8.80%         | PLTR    | 12.83%           | 18.05%         | MSTR    | 11.12%           | -1.79%         | 12.43%         | 2.49%                      |
-| 2025-08          | 2025-08-01      | PLTR    | 16.97%           | 1.83%          | AVGO    | 14.71%           | 3.33%          | AMD     | 14.38%           | -5.46%         | 15.35%         | -0.10%                     |
-| 2025-09          | 2025-09-02      | APP     | 16.81%           | 46.16%         | AMD     | 14.51%           | 1.04%          | MU      | 12.30%           | 53.74%         | 14.54%         | 33.65%                     |
-| 2025-10          | 2025-10-01      | WBD     | 20.96%           | 15.19%         | MU      | 19.17%           | 28.93%         | INTC    | 18.52%           | 9.91%          | 19.55%         | 18.01%                     |
-| 2025-11          | 2025-11-03      | WBD     | 22.41%           | 7.09%          | MU      | 20.62%           | 2.45%          | AMD     | 20.01%           | -15.36%        | 21.01%         | -1.94%                     |
-| 2025-12          | 2025-12-01      | MU      | 24.52%           | 31.23%         | INTC    | 21.26%           | -1.57%         | WBD     | 19.77%           | 19.44%         | 21.85%         | 16.36%                     |
-| 2026-01          | 2026-01-02      | MU      | 29.09%           | 38.80%         | WBD     | 27.06%           | -3.47%         | WDC     | 24.74%           | 43.97%         | 26.96%         | 26.43%                     |
-| 2026-02          | 2026-02-02      | MU      | 25.35%           | -5.74%         | WDC     | 20.83%           | -0.06%         | STX     | 15.60%           | -12.34%        | 20.60%         | -6.05%                     |
-| 2026-03          | 2026-03-02      | MU      | 16.68%           | -10.82%        | WDC     | 15.57%           | 10.29%         | AMAT    | 12.13%           | -4.94%         | 14.80%         | -1.82%                     |
-| 2026-04          | 2026-04-01      | WDC     | 17.27%           | 44.94%         | STX     | 14.16%           | 71.80%         | MU      | 13.37%           | 47.40%         | 14.93%         | 54.71%                     |
-| 2026-05          | 2026-05-01      | SNDK    | 54.50%           | 48.39%         | INTC    | 32.53%           | 9.75%          | STX     | 30.43%           | 26.73%         | 39.15%         | 28.29%                     |
+| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 1M Return   | Top 1 2M Return   | Top 1 3M Return   | Top 2   | Top 2 Momentum   | Top 2 1M Return   | Top 2 2M Return   | Top 2 3M Return   | Top 3   | Top 3 Momentum   | Top 3 1M Return   | Top 3 2M Return   | Top 3 3M Return   | Avg Momentum   |
+|:-----------------|:----------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:---------------|
+| 2025-06          | 2025-06-02      | PLTR    | 13.00%           | -1.03%            | 16.84%            | 18.97%            | ZS      | 10.74%           | 4.82%             | -4.40%            | -6.35%            | MELI    | 8.45%            | -3.55%            | -8.39%            | -8.24%            | 10.73%         |
+| 2025-07          | 2025-07-01      | ZS      | 13.34%           | -8.80%            | -10.66%           | -0.91%            | PLTR    | 12.83%           | 18.05%            | 20.21%            | 41.53%            | MSTR    | 11.12%           | -1.79%            | -8.49%            | -9.35%            | 12.43%         |
+| 2025-08          | 2025-08-01      | PLTR    | 16.97%           | 1.83%             | 19.89%            | 34.30%            | AVGO    | 14.71%           | 3.33%             | 15.70%            | 25.82%            | AMD     | 14.38%           | -5.46%            | -4.48%            | 51.22%            | 15.35%         |
+| 2025-09          | 2025-09-02      | APP     | 16.81%           | 46.16%            | 31.22%            | 29.45%            | AMD     | 14.51%           | 1.04%             | 59.96%            | 35.39%            | MU      | 12.30%           | 53.74%            | 98.22%            | 103.08%           | 14.54%         |
+| 2025-10          | 2025-10-01      | WBD     | 20.96%           | 15.19%            | 23.36%            | 47.34%            | MU      | 19.17%           | 28.93%            | 32.09%            | 73.34%            | INTC    | 18.52%           | 9.91%             | 11.32%            | 9.57%             | 19.55%         |
+| 2025-11          | 2025-11-03      | WBD     | 22.41%           | 7.09%             | 27.90%            | 23.46%            | MU      | 20.62%           | 2.45%             | 34.45%            | 86.61%            | AMD     | 20.01%           | -15.36%           | -13.93%           | -5.15%            | 21.01%         |
+| 2025-12          | 2025-12-01      | MU      | 24.52%           | 31.23%            | 82.14%            | 71.69%            | INTC    | 21.26%           | -1.57%            | 21.99%            | 13.72%            | WBD     | 19.77%           | 19.44%            | 15.29%            | 19.40%            | 21.85%         |
+| 2026-01          | 2026-01-02      | MU      | 29.09%           | 38.80%            | 30.83%            | 16.67%            | WBD     | 27.06%           | -3.47%            | -0.04%            | -3.58%            | WDC     | 24.74%           | 43.97%            | 43.89%            | 58.70%            | 26.96%         |
+| 2026-02          | 2026-02-02      | MU      | 25.35%           | -5.74%            | -15.94%           | 23.90%            | WDC     | 20.83%           | -0.06%            | 10.23%            | 59.76%            | STX     | 15.60%           | -12.34%           | -2.10%            | 68.19%            | 20.60%         |
+| 2026-03          | 2026-03-02      | MU      | 16.68%           | -10.82%           | 31.45%            | 151.03%           | WDC     | 15.57%           | 10.29%            | 59.85%            | 102.33%           | AMAT    | 12.13%           | -4.94%            | 4.54%             | 23.26%            | 14.80%         |
+| 2026-04          | 2026-04-01      | WDC     | 17.27%           | 44.94%            | 83.45%            |                   | STX     | 14.16%           | 71.80%            | 117.73%           |                   | MU      | 13.37%           | 47.40%            | 181.50%           |                   | 14.93%         |
+| 2026-05          | 2026-05-01      | SNDK    | 54.50%           | 48.39%            |                   |                   | INTC    | 32.53%           | 9.75%             |                   |                   | STX     | 30.43%           | 26.73%            |                   |                   | 39.15%         |
 
 _Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._
 
@@ -211,7 +215,9 @@ _Note: The ranking is still recomputed using the Nasdaq-100 universe effective a
 
 ### Backtest Yearly Compounded Returns
 
-The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.
+The table below uses non-overlapping compounding paths starting from January.
+Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions.
+The current year is labelled YTD when it is incomplete.
 
 | Year       | Top 1 Hold 1M   | Top 1 Hold 2M   | Top 1 Hold 3M   | Top 2 Hold 1M   | Top 2 Hold 2M   | Top 2 Hold 3M   | Top 3 Hold 1M   | Top 3 Hold 2M   | Top 3 Hold 3M   |
 |:-----------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|
@@ -259,22 +265,22 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Latest Top-3 Monthly Selections
 
-This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.
+This table shows the latest Top-3 monthly selections, their momentum values, and the realized 1M / 2M / 3M holding returns for each selected stock.
 
-| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 Return   | Top 2   | Top 2 Momentum   | Top 2 Return   | Top 3   | Top 3 Momentum   | Top 3 Return   | Avg Momentum   | Portfolio Hold 1M Return   |
-|:-----------------|:----------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:---------------|:---------------------------|
-| 2025-06          | 2025-06-02      | PLTR    | 12.67%           | -1.03%         | ZS      | 10.61%           | 4.82%          | MELI    | 8.39%            | -3.55%         | 10.56%         | 0.08%                      |
-| 2025-07          | 2025-07-01      | PLTR    | 10.19%           | 18.05%         | ZS      | 9.55%            | -8.80%         | MCHP    | 8.24%            | -7.42%         | 9.33%          | 0.61%                      |
-| 2025-08          | 2025-08-01      | PLTR    | 13.88%           | 1.83%          | AMD     | 12.43%           | -5.46%         | AVGO    | 9.81%            | 3.33%          | 12.04%         | -0.10%                     |
-| 2025-09          | 2025-09-02      | PLTR    | 13.94%           | 17.74%         | APP     | 13.22%           | 46.16%         | AVGO    | 12.44%           | 11.98%         | 13.20%         | 25.29%                     |
-| 2025-10          | 2025-10-01      | APP     | 22.68%           | -10.22%        | MU      | 20.58%           | 28.93%         | WBD     | 20.50%           | 15.19%         | 21.25%         | 11.30%                     |
-| 2025-11          | 2025-11-03      | MU      | 21.12%           | 2.45%          | WBD     | 19.81%           | 7.09%          | AMD     | 19.76%           | -15.36%        | 20.23%         | -1.94%                     |
-| 2025-12          | 2025-12-01      | WBD     | 19.35%           | 19.44%         | MU      | 16.99%           | 31.23%         | APP     | 14.85%           | -0.85%         | 17.06%         | 16.61%                     |
-| 2026-01          | 2026-01-02      | MU      | 25.86%           | 38.80%         | WDC     | 21.20%           | 43.97%         | WBD     | 19.71%           | -3.47%         | 22.26%         | 26.43%                     |
-| 2026-02          | 2026-02-02      | MU      | 31.03%           | -5.74%         | WDC     | 28.59%           | -0.06%         | STX     | 22.71%           | -12.34%        | 27.44%         | -6.05%                     |
-| 2026-03          | 2026-03-02      | MU      | 19.13%           | -10.82%        | WDC     | 16.66%           | 10.29%         | AMAT    | 11.54%           | -4.94%         | 15.78%         | -1.82%                     |
-| 2026-04          | 2026-04-01      | WDC     | 14.51%           | 44.94%         | STX     | 11.67%           | 71.80%         | MU      | 11.18%           | 47.40%         | 12.46%         | 54.71%                     |
-| 2026-05          | 2026-05-01      | SNDK    | 49.79%           | 48.39%         | INTC    | 25.71%           | 9.75%          | STX     | 25.69%           | 26.73%         | 33.73%         | 28.29%                     |
+| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 1M Return   | Top 1 2M Return   | Top 1 3M Return   | Top 2   | Top 2 Momentum   | Top 2 1M Return   | Top 2 2M Return   | Top 2 3M Return   | Top 3   | Top 3 Momentum   | Top 3 1M Return   | Top 3 2M Return   | Top 3 3M Return   | Avg Momentum   |
+|:-----------------|:----------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:---------------|
+| 2025-06          | 2025-06-02      | PLTR    | 12.67%           | -1.03%            | 16.84%            | 18.97%            | ZS      | 10.61%           | 4.82%             | -4.40%            | -6.35%            | MELI    | 8.39%            | -3.55%            | -8.39%            | -8.24%            | 10.56%         |
+| 2025-07          | 2025-07-01      | PLTR    | 10.19%           | 18.05%            | 20.21%            | 41.53%            | ZS      | 9.55%            | -8.80%            | -10.66%           | -0.91%            | MCHP    | 8.24%            | -7.42%            | -10.66%           | -9.94%            | 9.33%          |
+| 2025-08          | 2025-08-01      | PLTR    | 13.88%           | 1.83%             | 19.89%            | 34.30%            | AMD     | 12.43%           | -5.46%            | -4.48%            | 51.22%            | AVGO    | 9.81%            | 3.33%             | 15.70%            | 25.82%            | 12.04%         |
+| 2025-09          | 2025-09-02      | PLTR    | 13.94%           | 17.74%            | 31.89%            | 6.62%             | APP     | 13.22%           | 46.16%            | 31.22%            | 29.45%            | AVGO    | 12.44%           | 11.98%            | 21.77%            | 29.67%            | 13.20%         |
+| 2025-10          | 2025-10-01      | APP     | 22.68%           | -10.22%           | -11.43%           | -12.18%           | MU      | 20.58%           | 28.93%            | 32.09%            | 73.34%            | WBD     | 20.50%           | 15.19%            | 23.36%            | 47.34%            | 21.25%         |
+| 2025-11          | 2025-11-03      | MU      | 21.12%           | 2.45%             | 34.45%            | 86.61%            | WBD     | 19.81%           | 7.09%             | 27.90%            | 23.46%            | AMD     | 19.76%           | -15.36%           | -13.93%           | -5.15%            | 20.23%         |
+| 2025-12          | 2025-12-01      | WBD     | 19.35%           | 19.44%            | 15.29%            | 19.40%            | MU      | 16.99%           | 31.23%            | 82.14%            | 71.69%            | APP     | 14.85%           | -0.85%            | -22.55%           | -30.57%           | 17.06%         |
+| 2026-01          | 2026-01-02      | MU      | 25.86%           | 38.80%            | 30.83%            | 16.67%            | WDC     | 21.20%           | 43.97%            | 43.89%            | 58.70%            | WBD     | 19.71%           | -3.47%            | -0.04%            | -3.58%            | 22.26%         |
+| 2026-02          | 2026-02-02      | MU      | 31.03%           | -5.74%            | -15.94%           | 23.90%            | WDC     | 28.59%           | -0.06%            | 10.23%            | 59.76%            | STX     | 22.71%           | -12.34%           | -2.10%            | 68.19%            | 27.44%         |
+| 2026-03          | 2026-03-02      | MU      | 19.13%           | -10.82%           | 31.45%            | 151.03%           | WDC     | 16.66%           | 10.29%            | 59.85%            | 102.33%           | AMAT    | 11.54%           | -4.94%            | 4.54%             | 23.26%            | 15.78%         |
+| 2026-04          | 2026-04-01      | WDC     | 14.51%           | 44.94%            | 83.45%            |                   | STX     | 11.67%           | 71.80%            | 117.73%           |                   | MU      | 11.18%           | 47.40%            | 181.50%           |                   | 12.46%         |
+| 2026-05          | 2026-05-01      | SNDK    | 49.79%           | 48.39%            |                   |                   | INTC    | 25.71%           | 9.75%             |                   |                   | STX     | 25.69%           | 26.73%            |                   |                   | 33.73%         |
 
 _Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._
 
@@ -282,7 +288,9 @@ _Note: The ranking is still recomputed using the Nasdaq-100 universe effective a
 
 ### Backtest Yearly Compounded Returns
 
-The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.
+The table below uses non-overlapping compounding paths starting from January.
+Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions.
+The current year is labelled YTD when it is incomplete.
 
 | Year       | Top 1 Hold 1M   | Top 1 Hold 2M   | Top 1 Hold 3M   | Top 2 Hold 1M   | Top 2 Hold 2M   | Top 2 Hold 3M   | Top 3 Hold 1M   | Top 3 Hold 2M   | Top 3 Hold 3M   |
 |:-----------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|
@@ -330,22 +338,22 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Latest Top-3 Monthly Selections
 
-This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.
+This table shows the latest Top-3 monthly selections, their momentum values, and the realized 1M / 2M / 3M holding returns for each selected stock.
 
-| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 Return   | Top 2   | Top 2 Momentum   | Top 2 Return   | Top 3   | Top 3 Momentum   | Top 3 Return   | Avg Momentum   | Portfolio Hold 1M Return   |
-|:-----------------|:----------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:---------------|:---------------------------|
-| 2025-06          | 2025-06-02      | PLTR    | 12.77%           | -1.03%         | AVGO    | 8.83%            | 6.70%          | ZS      | 6.69%            | 4.82%          | 9.43%          | 3.50%                      |
-| 2025-07          | 2025-07-01      | PLTR    | 10.39%           | 18.05%         | ZS      | 9.64%            | -8.80%         | NFLX    | 6.83%            | -10.44%        | 8.95%          | -0.40%                     |
-| 2025-08          | 2025-08-01      | PLTR    | 11.50%           | 1.83%          | AMD     | 8.02%            | -5.46%         | NVDA    | 7.28%            | -1.69%         | 8.93%          | -1.78%                     |
-| 2025-09          | 2025-09-02      | PLTR    | 11.87%           | 17.74%         | AMD     | 9.45%            | 1.04%          | AVGO    | 8.73%            | 11.98%         | 10.02%         | 10.25%                     |
-| 2025-10          | 2025-10-01      | APP     | 18.71%           | -10.22%        | MU      | 15.10%           | 28.93%         | PLTR    | 14.57%           | 12.02%         | 16.13%         | 10.24%                     |
-| 2025-11          | 2025-11-03      | MU      | 21.98%           | 2.45%          | WBD     | 19.61%           | 7.09%          | AMD     | 19.56%           | -15.36%        | 20.38%         | -1.94%                     |
-| 2025-12          | 2025-12-01      | MU      | 18.01%           | 31.23%         | WBD     | 17.69%           | 19.44%         | INTC    | 14.21%           | -1.57%         | 16.64%         | 16.36%                     |
-| 2026-01          | 2026-01-02      | WDC     | 20.98%           | 43.97%         | WBD     | 19.36%           | -3.47%         | MU      | 19.36%           | 38.80%         | 19.90%         | 26.43%                     |
-| 2026-02          | 2026-02-02      | MU      | 28.02%           | -5.74%         | WDC     | 24.99%           | -0.06%         | STX     | 20.61%           | -12.34%        | 24.54%         | -6.05%                     |
-| 2026-03          | 2026-03-02      | MU      | 24.90%           | -10.82%        | WDC     | 23.82%           | 10.29%         | WBD     | 18.06%           | -3.54%         | 22.26%         | -1.36%                     |
-| 2026-04          | 2026-04-01      | WDC     | 15.59%           | 44.94%         | MU      | 14.14%           | 47.40%         | STX     | 10.29%           | 71.80%         | 13.34%         | 54.71%                     |
-| 2026-05          | 2026-05-01      | SNDK    | 41.75%           | 48.39%         | STX     | 21.69%           | 26.73%         | INTC    | 21.64%           | 9.75%          | 28.36%         | 28.29%                     |
+| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 1M Return   | Top 1 2M Return   | Top 1 3M Return   | Top 2   | Top 2 Momentum   | Top 2 1M Return   | Top 2 2M Return   | Top 2 3M Return   | Top 3   | Top 3 Momentum   | Top 3 1M Return   | Top 3 2M Return   | Top 3 3M Return   | Avg Momentum   |
+|:-----------------|:----------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:---------------|
+| 2025-06          | 2025-06-02      | PLTR    | 12.77%           | -1.03%            | 16.84%            | 18.97%            | AVGO    | 8.83%            | 6.70%             | 16.33%            | 20.20%            | ZS      | 6.69%            | 4.82%             | -4.40%            | -6.35%            | 9.43%          |
+| 2025-07          | 2025-07-01      | PLTR    | 10.39%           | 18.05%            | 20.21%            | 41.53%            | ZS      | 9.64%            | -8.80%            | -10.66%           | -0.91%            | NFLX    | 6.83%            | -10.44%           | -6.14%            | -9.49%            | 8.95%          |
+| 2025-08          | 2025-08-01      | PLTR    | 11.50%           | 1.83%             | 19.89%            | 34.30%            | AMD     | 8.02%            | -5.46%            | -4.48%            | 51.22%            | NVDA    | 7.28%            | -1.69%            | 7.79%             | 19.09%            | 8.93%          |
+| 2025-09          | 2025-09-02      | PLTR    | 11.87%           | 17.74%            | 31.89%            | 6.62%             | AMD     | 9.45%            | 1.04%             | 59.96%            | 35.39%            | AVGO    | 8.73%            | 11.98%            | 21.77%            | 29.67%            | 10.02%         |
+| 2025-10          | 2025-10-01      | APP     | 18.71%           | -10.22%           | -11.43%           | -12.18%           | MU      | 15.10%           | 28.93%            | 32.09%            | 73.34%            | PLTR    | 14.57%           | 12.02%            | -9.44%            | -9.24%            | 16.13%         |
+| 2025-11          | 2025-11-03      | MU      | 21.98%           | 2.45%             | 34.45%            | 86.61%            | WBD     | 19.61%           | 7.09%             | 27.90%            | 23.46%            | AMD     | 19.56%           | -15.36%           | -13.93%           | -5.15%            | 20.38%         |
+| 2025-12          | 2025-12-01      | MU      | 18.01%           | 31.23%            | 82.14%            | 71.69%            | WBD     | 17.69%           | 19.44%            | 15.29%            | 19.40%            | INTC    | 14.21%           | -1.57%            | 21.99%            | 13.72%            | 16.64%         |
+| 2026-01          | 2026-01-02      | WDC     | 20.98%           | 43.97%            | 43.89%            | 58.70%            | WBD     | 19.36%           | -3.47%            | -0.04%            | -3.58%            | MU      | 19.36%           | 38.80%            | 30.83%            | 16.67%            | 19.90%         |
+| 2026-02          | 2026-02-02      | MU      | 28.02%           | -5.74%            | -15.94%           | 23.90%            | WDC     | 24.99%           | -0.06%            | 10.23%            | 59.76%            | STX     | 20.61%           | -12.34%           | -2.10%            | 68.19%            | 24.54%         |
+| 2026-03          | 2026-03-02      | MU      | 24.90%           | -10.82%           | 31.45%            | 151.03%           | WDC     | 23.82%           | 10.29%            | 59.85%            | 102.33%           | WBD     | 18.06%           | -3.54%            | -5.37%            | -4.39%            | 22.26%         |
+| 2026-04          | 2026-04-01      | WDC     | 15.59%           | 44.94%            | 83.45%            |                   | MU      | 14.14%           | 47.40%            | 181.50%           |                   | STX     | 10.29%           | 71.80%            | 117.73%           |                   | 13.34%         |
+| 2026-05          | 2026-05-01      | SNDK    | 41.75%           | 48.39%            |                   |                   | STX     | 21.69%           | 26.73%            |                   |                   | INTC    | 21.64%           | 9.75%             |                   |                   | 28.36%         |
 
 _Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._
 
@@ -353,7 +361,9 @@ _Note: The ranking is still recomputed using the Nasdaq-100 universe effective a
 
 ### Backtest Yearly Compounded Returns
 
-The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.
+The table below uses non-overlapping compounding paths starting from January.
+Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions.
+The current year is labelled YTD when it is incomplete.
 
 | Year       | Top 1 Hold 1M   | Top 1 Hold 2M   | Top 1 Hold 3M   | Top 2 Hold 1M   | Top 2 Hold 2M   | Top 2 Hold 3M   | Top 3 Hold 1M   | Top 3 Hold 2M   | Top 3 Hold 3M   |
 |:-----------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|
@@ -401,22 +411,22 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Latest Top-3 Monthly Selections
 
-This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.
+This table shows the latest Top-3 monthly selections, their momentum values, and the realized 1M / 2M / 3M holding returns for each selected stock.
 
-| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 Return   | Top 2   | Top 2 Momentum   | Top 2 Return   | Top 3   | Top 3 Momentum   | Top 3 Return   | Avg Momentum   | Portfolio Hold 1M Return   |
-|:-----------------|:----------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:--------|:-----------------|:---------------|:---------------|:---------------------------|
-| 2025-06          | 2025-06-02      | PLTR    | 19.28%           | -1.03%         | APP     | 19.19%           | -16.23%        | MSTR    | 10.95%           | 0.28%          | 16.47%         | -5.66%                     |
-| 2025-07          | 2025-07-01      | PLTR    | 10.80%           | 18.05%         | AVGO    | 8.52%            | 9.03%          | ZS      | 6.43%            | -8.80%         | 8.58%          | 6.09%                      |
-| 2025-08          | 2025-08-01      | PLTR    | 11.48%           | 1.83%          | ZS      | 7.01%            | -2.03%         | CEG     | 6.71%            | -9.75%         | 8.40%          | -3.32%                     |
-| 2025-09          | 2025-09-02      | PLTR    | 10.12%           | 17.74%         | AMD     | 6.09%            | 1.04%          | APP     | 6.03%            | 46.16%         | 7.41%          | 21.64%                     |
-| 2025-10          | 2025-10-01      | APP     | 13.72%           | -10.22%        | PLTR    | 12.71%           | 12.02%         | MU      | 12.67%           | 28.93%         | 13.03%         | 10.24%                     |
-| 2025-11          | 2025-11-03      | MU      | 17.07%           | 2.45%          | AMD     | 15.92%           | -15.36%        | APP     | 14.58%           | -1.35%         | 15.86%         | -4.75%                     |
-| 2025-12          | 2025-12-01      | MU      | 19.19%           | 31.23%         | WBD     | 17.82%           | 19.44%         | AMD     | 14.57%           | 1.69%          | 17.19%         | 17.45%                     |
-| 2026-01          | 2026-01-02      | WDC     | 21.21%           | 43.97%         | MU      | 19.90%           | 38.80%         | WBD     | 17.94%           | -3.47%         | 19.68%         | 26.43%                     |
-| 2026-02          | 2026-02-02      | WDC     | 24.27%           | -0.06%         | MU      | 22.14%           | -5.74%         | STX     | 18.63%           | -12.34%        | 21.68%         | -6.05%                     |
-| 2026-03          | 2026-03-02      | MU      | 23.20%           | -10.82%        | WDC     | 21.41%           | 10.29%         | STX     | 15.90%           | 11.68%         | 20.17%         | 3.72%                      |
-| 2026-04          | 2026-04-01      | WDC     | 21.88%           | 44.94%         | MU      | 19.80%           | 47.40%         | STX     | 16.12%           | 71.80%         | 19.27%         | 54.71%                     |
-| 2026-05          | 2026-05-01      | SNDK    | 45.91%           | 48.39%         | INTC    | 19.97%           | 9.75%          | WDC     | 19.79%           | 26.58%         | 28.56%         | 28.24%                     |
+| Decision Month   | Decision Date   | Top 1   | Top 1 Momentum   | Top 1 1M Return   | Top 1 2M Return   | Top 1 3M Return   | Top 2   | Top 2 Momentum   | Top 2 1M Return   | Top 2 2M Return   | Top 2 3M Return   | Top 3   | Top 3 Momentum   | Top 3 1M Return   | Top 3 2M Return   | Top 3 3M Return   | Avg Momentum   |
+|:-----------------|:----------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:--------|:-----------------|:------------------|:------------------|:------------------|:---------------|
+| 2025-06          | 2025-06-02      | PLTR    | 19.28%           | -1.03%            | 16.84%            | 18.97%            | APP     | 19.19%           | -16.23%           | -5.66%            | 19.86%            | MSTR    | 10.95%           | 0.28%             | -1.52%            | -8.23%            | 16.47%         |
+| 2025-07          | 2025-07-01      | PLTR    | 10.80%           | 18.05%            | 20.21%            | 41.53%            | AVGO    | 8.52%            | 9.03%             | 12.65%            | 26.15%            | ZS      | 6.43%            | -8.80%            | -10.66%           | -0.91%            | 8.58%          |
+| 2025-08          | 2025-08-01      | PLTR    | 11.48%           | 1.83%             | 19.89%            | 34.30%            | ZS      | 7.01%            | -2.03%            | 8.66%             | 19.98%            | CEG     | 6.71%            | -9.75%            | 3.10%             | 10.97%            | 8.40%          |
+| 2025-09          | 2025-09-02      | PLTR    | 10.12%           | 17.74%            | 31.89%            | 6.62%             | AMD     | 6.09%            | 1.04%             | 59.96%            | 35.39%            | APP     | 6.03%            | 46.16%            | 31.22%            | 29.45%            | 7.41%          |
+| 2025-10          | 2025-10-01      | APP     | 13.72%           | -10.22%           | -11.43%           | -12.18%           | PLTR    | 12.71%           | 12.02%            | -9.44%            | -9.24%            | MU      | 12.67%           | 28.93%            | 32.09%            | 73.34%            | 13.03%         |
+| 2025-11          | 2025-11-03      | MU      | 17.07%           | 2.45%             | 34.45%            | 86.61%            | AMD     | 15.92%           | -15.36%           | -13.93%           | -5.15%            | APP     | 14.58%           | -1.35%            | -2.19%            | -23.59%           | 15.86%         |
+| 2025-12          | 2025-12-01      | MU      | 19.19%           | 31.23%            | 82.14%            | 71.69%            | WBD     | 17.82%           | 19.44%            | 15.29%            | 19.40%            | AMD     | 14.57%           | 1.69%             | 12.06%            | -9.62%            | 17.19%         |
+| 2026-01          | 2026-01-02      | WDC     | 21.21%           | 43.97%            | 43.89%            | 58.70%            | MU      | 19.90%           | 38.80%            | 30.83%            | 16.67%            | WBD     | 17.94%           | -3.47%            | -0.04%            | -3.58%            | 19.68%         |
+| 2026-02          | 2026-02-02      | WDC     | 24.27%           | -0.06%            | 10.23%            | 59.76%            | MU      | 22.14%           | -5.74%            | -15.94%           | 23.90%            | STX     | 18.63%           | -12.34%           | -2.10%            | 68.19%            | 21.68%         |
+| 2026-03          | 2026-03-02      | MU      | 23.20%           | -10.82%           | 31.45%            | 151.03%           | WDC     | 21.41%           | 10.29%            | 59.85%            | 102.33%           | STX     | 15.90%           | 11.68%            | 91.87%            | 143.17%           | 20.17%         |
+| 2026-04          | 2026-04-01      | WDC     | 21.88%           | 44.94%            | 83.45%            |                   | MU      | 19.80%           | 47.40%            | 181.50%           |                   | STX     | 16.12%           | 71.80%            | 117.73%           |                   | 19.27%         |
+| 2026-05          | 2026-05-01      | SNDK    | 45.91%           | 48.39%            |                   |                   | INTC    | 19.97%           | 9.75%             |                   |                   | WDC     | 19.79%           | 26.58%            |                   |                   | 28.56%         |
 
 _Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._
 
