@@ -33,14 +33,18 @@ def format_yearly_table(yearly: pd.DataFrame, window: int) -> str:
     sub = yearly[yearly["momentum_window"] == window].copy()
     if sub.empty:
         return "_No yearly data available._"
+
     sub = sub.drop(columns=[c for c in sub.columns if c.endswith("Trades")], errors="ignore")
     sub = sub.drop(columns=["momentum_window"], errors="ignore")
     sub = sub.rename(columns={"year": "Year"})
+
     for col in sub.columns:
         if col != "Year":
             sub[col] = sub[col].map(fmt_pct)
+
     current_year = sub["Year"].max()
     sub["Year"] = sub["Year"].apply(lambda y: f"{int(y)} (YTD)" if y == current_year else int(y))
+
     return df_to_markdown(sub)
 
 
@@ -48,12 +52,14 @@ def format_summary(summary: pd.DataFrame, window: int) -> str:
     sub = summary[summary["momentum_window"] == window].copy()
     if sub.empty:
         return "_No summary data available._"
-    sub = sub.drop(columns=["momentum_window"], errors="ignore")
+
+    # Removed "trades" from README display.
+    sub = sub.drop(columns=["momentum_window", "trades"], errors="ignore")
+
     sub = sub.rename(
         columns={
             "top_n": "Top N",
             "holding_months": "Holding Months",
-            "trades": "Trades",
             "avg_return": "Avg Return",
             "median_return": "Median Return",
             "win_rate": "Win Rate",
@@ -62,11 +68,16 @@ def format_summary(summary: pd.DataFrame, window: int) -> str:
             "avg_available_universe_size": "Avg Available Universe",
         }
     )
+
     for col in ["Avg Return", "Median Return", "Win Rate", "Best Return", "Worst Return"]:
         if col in sub.columns:
             sub[col] = sub[col].map(fmt_pct)
+
     if "Avg Available Universe" in sub.columns:
-        sub["Avg Available Universe"] = sub["Avg Available Universe"].map(lambda x: f"{float(x):.1f}" if pd.notna(x) else "")
+        sub["Avg Available Universe"] = sub["Avg Available Universe"].map(
+            lambda x: f"{float(x):.1f}" if pd.notna(x) else ""
+        )
+
     return df_to_markdown(sub)
 
 
@@ -74,12 +85,14 @@ def format_benchmark_comparison(comp: pd.DataFrame, window: int) -> str:
     sub = comp[comp["momentum_window"] == window].copy()
     if sub.empty:
         return "_No benchmark comparison available._"
-    sub = sub.drop(columns=["momentum_window"], errors="ignore")
+
+    # Removed "years" from README display.
+    sub = sub.drop(columns=["momentum_window", "years"], errors="ignore")
+
     sub = sub.rename(
         columns={
             "top_n": "Top N",
             "holding_months": "Holding Months",
-            "years": "Years",
             "avg_strategy_yearly_return": "Avg Strategy Yearly Return",
             "avg_qqq_yearly_return": "Avg QQQ Yearly Return",
             "avg_excess_return": "Avg Excess Return",
@@ -88,6 +101,7 @@ def format_benchmark_comparison(comp: pd.DataFrame, window: int) -> str:
             "worst_excess": "Worst Excess",
         }
     )
+
     for col in [
         "Avg Strategy Yearly Return",
         "Avg QQQ Yearly Return",
@@ -98,14 +112,22 @@ def format_benchmark_comparison(comp: pd.DataFrame, window: int) -> str:
     ]:
         if col in sub.columns:
             sub[col] = sub[col].map(fmt_pct)
+
     return df_to_markdown(sub)
 
 
 def format_latest_selection(detail: pd.DataFrame, window: int) -> str:
-    sub = detail[(detail["momentum_window"] == window) & (detail["top_n"] == 3) & (detail["holding_months"] == 1)].copy()
+    sub = detail[
+        (detail["momentum_window"] == window)
+        & (detail["top_n"] == 3)
+        & (detail["holding_months"] == 1)
+    ].copy()
+
     if sub.empty:
         return "_No latest selection data available._"
+
     latest = sub.sort_values("decision_date").tail(12).copy()
+
     cols = [
         "decision_month",
         "decision_date",
@@ -121,7 +143,9 @@ def format_latest_selection(detail: pd.DataFrame, window: int) -> str:
         "avg_momentum",
         "holding_return",
     ]
+
     latest = latest[cols]
+
     latest = latest.rename(
         columns={
             "decision_month": "Decision Month",
@@ -139,39 +163,53 @@ def format_latest_selection(detail: pd.DataFrame, window: int) -> str:
             "holding_return": "Portfolio Hold 1M Return",
         }
     )
+
     for col in latest.columns:
         if "Momentum" in col or "Return" in col:
             latest[col] = latest[col].map(fmt_pct)
+
     return df_to_markdown(latest)
 
 
 def format_qqq_table(qqq: pd.DataFrame) -> str:
     if qqq.empty:
         return "_No QQQ benchmark data available._"
+
     q = qqq.drop(columns=[c for c in qqq.columns if c.endswith("Trades")], errors="ignore").copy()
     q = q.rename(columns={"year": "Year"})
+
     for col in q.columns:
         if col != "Year":
             q[col] = q[col].map(fmt_pct)
+
     return df_to_markdown(q)
 
 
 def format_data_audit() -> str:
     parts = []
+
     try:
         cur = pd.read_csv(CURRENT_TICKERS_FILE)
         parts.append(f"- Current Nasdaq-100 tickers saved: **{cur['ticker'].nunique()}**")
     except Exception:
         parts.append("- Current Nasdaq-100 tickers saved: _not available; run update_data.py first._")
+
     try:
         changes = pd.read_csv(COMPONENT_CHANGES_FILE)
         parts.append(f"- Component-change rows saved: **{len(changes)}**")
     except Exception:
         parts.append("- Component-change rows saved: _not available; run update_data.py first._")
+
     return "\n".join(parts)
 
 
-def window_section(window: int, yearly: pd.DataFrame, comp: pd.DataFrame, summary: pd.DataFrame, detail: pd.DataFrame) -> str:
+def window_section(
+    window: int,
+    yearly: pd.DataFrame,
+    comp: pd.DataFrame,
+    summary: pd.DataFrame,
+    detail: pd.DataFrame,
+) -> str:
     return f"""## {window}-Month Momentum Strategy
 
 ### Backtest Yearly Compounded Returns
@@ -204,6 +242,7 @@ def main() -> None:
     yearly = pd.read_csv(YEARLY_RETURNS_FILE)
     summary = pd.read_csv(SUMMARY_FILE)
     detail = pd.read_csv(DETAIL_FILE)
+
     qqq = pd.read_csv(BENCHMARK_YEARLY_FILE) if BENCHMARK_YEARLY_FILE.exists() else pd.DataFrame()
     comp = pd.read_csv(BENCHMARK_COMPARISON_FILE) if BENCHMARK_COMPARISON_FILE.exists() else pd.DataFrame()
 
@@ -246,23 +285,3 @@ Data source for constituents and component changes: `{WIKI_URL}`.
 ```bash
 pip install -r requirements.txt
 python run_all.py
-```
-
-Generated outputs are saved in `output/`.
-
-Important output files:
-
-- `data/nasdaq100_current_tickers.csv`: current Nasdaq-100 list downloaded from Wikipedia.
-- `data/nasdaq100_component_changes.csv`: component changes parsed from Wikipedia.
-- `data/nasdaq100_all_historical_tickers.csv`: all current, added, and removed tickers used for price downloads.
-- `output/momentum_grid_detail.csv`: full monthly selections, effective universe date, selected stocks, momentum, and holding returns.
-- `output/yearly_compounded_returns.csv`: annual compounded return table for all 3/4/5/6/7-month momentum windows.
-- `output/momentum_grid_summary.csv`: strategy summary statistics.
-- `output/benchmark_comparison_summary.csv`: QQQ comparison summary.
-"""
-    README_FILE.write_text(content, encoding="utf-8")
-    print(f"Updated {README_FILE}")
-
-
-if __name__ == "__main__":
-    main()
