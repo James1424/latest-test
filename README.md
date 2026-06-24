@@ -1,16 +1,40 @@
-# Nasdaq-100 Monthly Point-in-Time Momentum Grid Backtest
+# Nasdaq-100 Point-in-Time Momentum Grid Backtest vs QQQ
 
-This project tests Nasdaq-100 average-momentum strategies using **monthly point-in-time Nasdaq-100 constituents**.
+This project compares Nasdaq-100 average-momentum strategies using five momentum windows:
 
-## Strategy Definition
+- 3-month average momentum
+- 4-month average momentum
+- 5-month average momentum
+- 6-month average momentum
+- 7-month average momentum
 
-- Monthly decision date: first available trading day of each calendar month.
-- Universe: Nasdaq-100 constituents effective on that decision date, reconstructed from the current Wikipedia Nasdaq-100 list and the component-change table.
-- Momentum: average of the previous N one-month returns, using month-start adjusted prices.
-- Momentum windows tested: 3, 4, 5, 6, and 7 months.
-- Portfolios tested: Top 1, Top 2, and Top 3 stocks by momentum.
-- Holding periods tested: 1M, 2M, and 3M.
-- Yearly returns use non-overlapping compounding paths.
+For each momentum window, the project tests:
+
+- Top 1 / Top 2 / Top 3 selected stocks
+- 1 / 2 / 3 month holding periods
+- Monthly decisions from 2016 to the latest available completed holding period
+
+The README is automatically regenerated from the CSV outputs. For each momentum window, the README shows:
+
+1. Backtest Yearly Compounded Returns
+2. Benchmark Comparison Summary vs QQQ
+3. Summary
+4. Latest Top-3 Monthly Selections
+
+The full monthly decision-level data is saved in `output/momentum_grid_detail.csv`.
+
+Last updated: **2026-06-24 03:16 UTC**
+
+## Method
+
+- Stock universe: monthly point-in-time Nasdaq-100 constituents
+- Decision date: first available trading day of each month
+- Momentum definition: average of the previous N one-month returns based on month-start adjusted close prices
+- Momentum windows: 3 / 4 / 5 / 6 / 7 months
+- Buy price: adjusted close on the decision date
+- Sell price: adjusted close on the first trading day after the selected holding period
+- Portfolio return: equal-weighted average return of the selected stocks
+- Yearly compounded return: non-overlapping compounding path starting from January
 
 ## Universe Rule
 
@@ -79,17 +103,17 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Summary
 
-|   Top N |   Holding Months | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |   Avg Available Universe |
-|--------:|-----------------:|:-------------|:----------------|:-----------|:--------------|:---------------|-------------------------:|
-|       1 |                1 | 2.26%        | 0.35%           | 51.20%     | 81.29%        | -35.24%        |                     92.2 |
-|       1 |                2 | 7.35%        | 1.22%           | 54.47%     | 112.15%       | -38.94%        |                     92.2 |
-|       1 |                3 | 12.94%       | 6.08%           | 54.10%     | 151.03%       | -50.66%        |                     92.1 |
-|       2 |                1 | 2.95%        | 0.69%           | 53.60%     | 58.37%        | -24.59%        |                     92.2 |
-|       2 |                2 | 6.94%        | 2.59%           | 56.91%     | 100.59%       | -33.45%        |                     92.2 |
-|       2 |                3 | 10.00%       | 5.20%           | 68.85%     | 126.68%       | -28.37%        |                     92.1 |
-|       3 |                1 | 3.19%        | 0.81%           | 56.00%     | 50.97%        | -22.72%        |                     92.2 |
-|       3 |                2 | 6.65%        | 3.43%           | 62.60%     | 121.61%       | -31.41%        |                     92.2 |
-|       3 |                3 | 8.80%        | 4.76%           | 72.13%     | 96.94%        | -29.19%        |                     92.1 |
+|   Momentum Window |   Top N |   Holding Months |   Trades | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |
+|------------------:|--------:|-----------------:|---------:|:-------------|:----------------|:-----------|:--------------|:---------------|
+|                 3 |       1 |                1 |      125 | 2.26%        | 0.35%           | 51.20%     | 81.29%        | -35.24%        |
+|                 3 |       1 |                2 |      123 | 7.35%        | 1.22%           | 54.47%     | 112.15%       | -38.94%        |
+|                 3 |       1 |                3 |      122 | 12.94%       | 6.08%           | 54.10%     | 151.03%       | -50.66%        |
+|                 3 |       2 |                1 |      125 | 2.95%        | 0.69%           | 53.60%     | 58.37%        | -24.59%        |
+|                 3 |       2 |                2 |      123 | 6.94%        | 2.59%           | 56.91%     | 100.59%       | -33.45%        |
+|                 3 |       2 |                3 |      122 | 10.00%       | 5.20%           | 68.85%     | 126.68%       | -28.37%        |
+|                 3 |       3 |                1 |      125 | 3.19%        | 0.81%           | 56.00%     | 50.97%        | -22.72%        |
+|                 3 |       3 |                2 |      123 | 6.65%        | 3.43%           | 62.60%     | 121.61%       | -31.41%        |
+|                 3 |       3 |                3 |      122 | 8.80%        | 4.76%           | 72.13%     | 96.94%        | -29.19%        |
 
 ### Latest Top-3 Monthly Selections
 
@@ -150,17 +174,17 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Summary
 
-|   Top N |   Holding Months | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |   Avg Available Universe |
-|--------:|-----------------:|:-------------|:----------------|:-----------|:--------------|:---------------|-------------------------:|
-|       1 |                1 | 6.63%        | 3.42%           | 58.40%     | 81.29%        | -35.24%        |                     92.2 |
-|       1 |                2 | 13.59%       | 9.63%           | 65.85%     | 132.93%       | -40.06%        |                     92.2 |
-|       1 |                3 | 18.35%       | 15.15%          | 68.85%     | 151.03%       | -40.02%        |                     92.1 |
-|       2 |                1 | 4.29%        | 2.67%           | 62.10%     | 58.37%        | -24.59%        |                     92.2 |
-|       2 |                2 | 9.12%        | 6.85%           | 66.39%     | 100.59%       | -33.45%        |                     92.2 |
-|       2 |                3 | 12.28%       | 6.55%           | 76.03%     | 126.68%       | -27.01%        |                     92.1 |
-|       3 |                1 | 3.93%        | 1.88%           | 58.06%     | 54.71%        | -21.38%        |                     92.2 |
-|       3 |                2 | 8.48%        | 5.30%           | 67.21%     | 127.56%       | -25.13%        |                     92.2 |
-|       3 |                3 | 11.56%       | 7.80%           | 73.55%     | 92.21%        | -33.11%        |                     92.1 |
+|   Momentum Window |   Top N |   Holding Months |   Trades | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |
+|------------------:|--------:|-----------------:|---------:|:-------------|:----------------|:-----------|:--------------|:---------------|
+|                 4 |       1 |                1 |      125 | 6.63%        | 3.42%           | 58.40%     | 81.29%        | -35.24%        |
+|                 4 |       1 |                2 |      123 | 13.59%       | 9.63%           | 65.85%     | 132.93%       | -40.06%        |
+|                 4 |       1 |                3 |      122 | 18.35%       | 15.15%          | 68.85%     | 151.03%       | -40.02%        |
+|                 4 |       2 |                1 |      124 | 4.29%        | 2.67%           | 62.10%     | 58.37%        | -24.59%        |
+|                 4 |       2 |                2 |      122 | 9.12%        | 6.85%           | 66.39%     | 100.59%       | -33.45%        |
+|                 4 |       2 |                3 |      121 | 12.28%       | 6.55%           | 76.03%     | 126.68%       | -27.01%        |
+|                 4 |       3 |                1 |      124 | 3.93%        | 1.88%           | 58.06%     | 54.71%        | -21.38%        |
+|                 4 |       3 |                2 |      122 | 8.48%        | 5.30%           | 67.21%     | 127.56%       | -25.13%        |
+|                 4 |       3 |                3 |      121 | 11.56%       | 7.80%           | 73.55%     | 92.21%        | -33.11%        |
 
 ### Latest Top-3 Monthly Selections
 
@@ -221,17 +245,17 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Summary
 
-|   Top N |   Holding Months | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |   Avg Available Universe |
-|--------:|-----------------:|:-------------|:----------------|:-----------|:--------------|:---------------|-------------------------:|
-|       1 |                1 | 4.98%        | 2.84%           | 56.80%     | 81.29%        | -41.01%        |                     92.2 |
-|       1 |                2 | 11.51%       | 7.40%           | 64.23%     | 132.93%       | -40.06%        |                     92.2 |
-|       1 |                3 | 16.54%       | 11.40%          | 63.93%     | 151.03%       | -48.38%        |                     92.1 |
-|       2 |                1 | 4.92%        | 2.65%           | 64.00%     | 58.37%        | -27.84%        |                     92.2 |
-|       2 |                2 | 9.80%        | 5.69%           | 73.17%     | 100.59%       | -33.45%        |                     92.2 |
-|       2 |                3 | 14.33%       | 9.92%           | 72.95%     | 144.33%       | -35.86%        |                     92.1 |
-|       3 |                1 | 3.97%        | 2.05%           | 64.00%     | 54.71%        | -22.64%        |                     92.2 |
-|       3 |                2 | 7.92%        | 4.71%           | 70.73%     | 127.56%       | -29.65%        |                     92.2 |
-|       3 |                3 | 11.52%       | 8.03%           | 75.41%     | 100.05%       | -33.11%        |                     92.1 |
+|   Momentum Window |   Top N |   Holding Months |   Trades | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |
+|------------------:|--------:|-----------------:|---------:|:-------------|:----------------|:-----------|:--------------|:---------------|
+|                 5 |       1 |                1 |      125 | 4.98%        | 2.84%           | 56.80%     | 81.29%        | -41.01%        |
+|                 5 |       1 |                2 |      123 | 11.51%       | 7.40%           | 64.23%     | 132.93%       | -40.06%        |
+|                 5 |       1 |                3 |      122 | 16.54%       | 11.40%          | 63.93%     | 151.03%       | -48.38%        |
+|                 5 |       2 |                1 |      125 | 4.92%        | 2.65%           | 64.00%     | 58.37%        | -27.84%        |
+|                 5 |       2 |                2 |      123 | 9.80%        | 5.69%           | 73.17%     | 100.59%       | -33.45%        |
+|                 5 |       2 |                3 |      122 | 14.33%       | 9.92%           | 72.95%     | 144.33%       | -35.86%        |
+|                 5 |       3 |                1 |      125 | 3.97%        | 2.05%           | 64.00%     | 54.71%        | -22.64%        |
+|                 5 |       3 |                2 |      123 | 7.92%        | 4.71%           | 70.73%     | 127.56%       | -29.65%        |
+|                 5 |       3 |                3 |      122 | 11.52%       | 8.03%           | 75.41%     | 100.05%       | -33.11%        |
 
 ### Latest Top-3 Monthly Selections
 
@@ -263,7 +287,7 @@ The table below uses non-overlapping compounding paths starting from January. Ho
 | Year       | Top 1 Hold 1M   | Top 1 Hold 2M   | Top 1 Hold 3M   | Top 2 Hold 1M   | Top 2 Hold 2M   | Top 2 Hold 3M   | Top 3 Hold 1M   | Top 3 Hold 2M   | Top 3 Hold 3M   |
 |:-----------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|:----------------|
 | 2016       | 130.52%         | 149.63%         | 129.23%         | 89.06%          | 61.42%          | 38.55%          | 67.53%          | 58.42%          | 48.80%          |
-| 2017       | 20.61%          | 20.08%          | 43.20%          | 23.10%          | 40.20%          | 64.12%          | 32.87%          | 46.14%          | 58.09%          |
+| 2017       | 20.61%          | 20.08%          | 43.20%          | 23.10%          | 40.19%          | 64.12%          | 32.87%          | 46.14%          | 58.09%          |
 | 2018       | -37.74%         | -52.06%         | -57.63%         | -8.32%          | -26.32%         | -27.41%         | -8.96%          | -20.89%         | -13.03%         |
 | 2019       | 91.14%          | 108.69%         | 76.13%          | 44.60%          | 49.39%          | 40.96%          | 55.60%          | 52.67%          | 39.99%          |
 | 2020       | 130.69%         | 261.50%         | 689.80%         | 259.41%         | 350.75%         | 309.03%         | 227.63%         | 282.42%         | 228.81%         |
@@ -292,17 +316,17 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Summary
 
-|   Top N |   Holding Months | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |   Avg Available Universe |
-|--------:|-----------------:|:-------------|:----------------|:-----------|:--------------|:---------------|-------------------------:|
-|       1 |                1 | 4.81%        | 1.83%           | 56.80%     | 81.29%        | -41.01%        |                     92.2 |
-|       1 |                2 | 11.19%       | 7.11%           | 62.90%     | 132.93%       | -40.06%        |                     92.1 |
-|       1 |                3 | 16.59%       | 8.01%           | 61.79%     | 164.48%       | -48.77%        |                     92.1 |
-|       2 |                1 | 4.28%        | 1.91%           | 61.29%     | 46.17%        | -27.84%        |                     92.2 |
-|       2 |                2 | 9.78%        | 5.59%           | 67.48%     | 132.48%       | -33.45%        |                     92.2 |
-|       2 |                3 | 14.34%       | 10.94%          | 70.49%     | 144.33%       | -38.19%        |                     92.1 |
-|       3 |                1 | 4.07%        | 2.24%           | 58.87%     | 54.71%        | -24.20%        |                     92.2 |
-|       3 |                2 | 9.01%        | 7.24%           | 69.11%     | 127.56%       | -30.38%        |                     92.2 |
-|       3 |                3 | 12.17%       | 8.80%           | 73.77%     | 100.05%       | -33.11%        |                     92.1 |
+|   Momentum Window |   Top N |   Holding Months |   Trades | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |
+|------------------:|--------:|-----------------:|---------:|:-------------|:----------------|:-----------|:--------------|:---------------|
+|                 6 |       1 |                1 |      125 | 4.81%        | 1.83%           | 56.80%     | 81.29%        | -41.01%        |
+|                 6 |       1 |                2 |      124 | 11.19%       | 7.11%           | 62.90%     | 132.93%       | -40.06%        |
+|                 6 |       1 |                3 |      123 | 16.59%       | 8.01%           | 61.79%     | 164.48%       | -48.77%        |
+|                 6 |       2 |                1 |      124 | 4.28%        | 1.91%           | 61.29%     | 46.17%        | -27.84%        |
+|                 6 |       2 |                2 |      123 | 9.78%        | 5.59%           | 67.48%     | 132.48%       | -33.45%        |
+|                 6 |       2 |                3 |      122 | 14.34%       | 10.94%          | 70.49%     | 144.33%       | -38.19%        |
+|                 6 |       3 |                1 |      124 | 4.07%        | 2.24%           | 58.87%     | 54.71%        | -24.20%        |
+|                 6 |       3 |                2 |      123 | 9.01%        | 7.24%           | 69.11%     | 127.56%       | -30.38%        |
+|                 6 |       3 |                3 |      122 | 12.17%       | 8.80%           | 73.77%     | 100.05%       | -33.11%        |
 
 ### Latest Top-3 Monthly Selections
 
@@ -343,7 +367,7 @@ The table below uses non-overlapping compounding paths starting from January. Ho
 | 2023       | 55.56%          | 35.23%          | 52.54%          | 56.05%          | 60.83%          | 34.43%          | 42.04%          | 43.20%          | 40.62%          |
 | 2024       | -29.12%         | 11.42%          | -21.31%         | 0.49%           | 32.17%          | 29.58%          | 15.52%          | 67.61%          | 20.10%          |
 | 2025       | 57.11%          | 96.03%          | 22.44%          | 53.63%          | 129.32%         | 40.69%          | 107.47%         | 116.08%         | 87.35%          |
-| 2026 (YTD) | 175.98%         | 89.14%          | 58.70%          | 158.31%         | 100.06%         | 37.68%          | 144.44%         | 101.15%         | 23.93%          |
+| 2026 (YTD) | 175.98%         | 89.14%          | 58.70%          | 158.32%         | 100.06%         | 37.68%          | 144.44%         | 101.15%         | 23.93%          |
 
 ### Benchmark Comparison Summary vs QQQ
 
@@ -363,17 +387,17 @@ This table compares each strategy combination with QQQ using the same non-overla
 
 ### Summary
 
-|   Top N |   Holding Months | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |   Avg Available Universe |
-|--------:|-----------------:|:-------------|:----------------|:-----------|:--------------|:---------------|-------------------------:|
-|       1 |                1 | 6.37%        | 3.38%           | 60.80%     | 81.29%        | -35.24%        |                     92.2 |
-|       1 |                2 | 13.06%       | 9.25%           | 63.41%     | 132.93%       | -40.06%        |                     92.2 |
-|       1 |                3 | 16.70%       | 8.02%           | 61.48%     | 164.48%       | -61.25%        |                     92.1 |
-|       2 |                1 | 4.11%        | 2.72%           | 62.40%     | 46.17%        | -27.84%        |                     92.2 |
-|       2 |                2 | 9.07%        | 5.15%           | 65.85%     | 132.48%       | -33.45%        |                     92.2 |
-|       2 |                3 | 12.48%       | 8.86%           | 69.67%     | 144.33%       | -38.19%        |                     92.1 |
-|       3 |                1 | 3.92%        | 2.55%           | 63.20%     | 54.71%        | -22.46%        |                     92.2 |
-|       3 |                2 | 8.35%        | 6.11%           | 65.85%     | 127.56%       | -29.65%        |                     92.2 |
-|       3 |                3 | 11.10%       | 8.42%           | 76.23%     | 132.18%       | -33.61%        |                     92.1 |
+|   Momentum Window |   Top N |   Holding Months |   Trades | Avg Return   | Median Return   | Win Rate   | Best Return   | Worst Return   |
+|------------------:|--------:|-----------------:|---------:|:-------------|:----------------|:-----------|:--------------|:---------------|
+|                 7 |       1 |                1 |      125 | 6.37%        | 3.38%           | 60.80%     | 81.29%        | -35.24%        |
+|                 7 |       1 |                2 |      123 | 13.06%       | 9.25%           | 63.41%     | 132.93%       | -40.06%        |
+|                 7 |       1 |                3 |      122 | 16.70%       | 8.02%           | 61.48%     | 164.48%       | -61.25%        |
+|                 7 |       2 |                1 |      125 | 4.11%        | 2.72%           | 62.40%     | 46.17%        | -27.84%        |
+|                 7 |       2 |                2 |      123 | 9.07%        | 5.15%           | 65.85%     | 132.48%       | -33.45%        |
+|                 7 |       2 |                3 |      122 | 12.48%       | 8.86%           | 69.67%     | 144.33%       | -38.19%        |
+|                 7 |       3 |                1 |      125 | 3.92%        | 2.55%           | 63.20%     | 54.71%        | -22.46%        |
+|                 7 |       3 |                2 |      123 | 8.35%        | 6.11%           | 65.85%     | 127.56%       | -29.65%        |
+|                 7 |       3 |                3 |      122 | 11.10%       | 8.42%           | 76.23%     | 132.18%       | -33.61%        |
 
 ### Latest Top-3 Monthly Selections
 
