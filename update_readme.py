@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 import pandas as pd
 
 from config import (
@@ -51,29 +53,43 @@ def format_summary(summary: pd.DataFrame, window: int) -> str:
     if sub.empty:
         return "_No summary data available._"
 
-    sub = sub.drop(columns=["momentum_window", "trades"], errors="ignore")
+    # Keep README compact:
+    # - show Momentum Window as the first column
+    # - keep Trades
+    # - remove Avg Available Universe from README tables
+    # The raw universe audit field remains available in output/momentum_grid_summary.csv.
+    sub = sub.drop(columns=["avg_available_universe_size"], errors="ignore")
 
     sub = sub.rename(
         columns={
+            "momentum_window": "Momentum Window",
             "top_n": "Top N",
             "holding_months": "Holding Months",
+            "trades": "Trades",
             "avg_return": "Avg Return",
             "median_return": "Median Return",
             "win_rate": "Win Rate",
             "best_return": "Best Return",
             "worst_return": "Worst Return",
-            "avg_available_universe_size": "Avg Available Universe",
         }
     )
+
+    ordered_cols = [
+        "Momentum Window",
+        "Top N",
+        "Holding Months",
+        "Trades",
+        "Avg Return",
+        "Median Return",
+        "Win Rate",
+        "Best Return",
+        "Worst Return",
+    ]
+    sub = sub[[c for c in ordered_cols if c in sub.columns]]
 
     for col in ["Avg Return", "Median Return", "Win Rate", "Best Return", "Worst Return"]:
         if col in sub.columns:
             sub[col] = sub[col].map(fmt_pct)
-
-    if "Avg Available Universe" in sub.columns:
-        sub["Avg Available Universe"] = sub["Avg Available Universe"].map(
-            lambda x: f"{float(x):.1f}" if pd.notna(x) else ""
-        )
 
     return df_to_markdown(sub)
 
@@ -248,19 +264,43 @@ def main() -> None:
     sections = "\n".join(window_section(w, yearly, comp, summary, detail) for w in MOMENTUM_WINDOWS)
 
     content_parts = [
-        "# Nasdaq-100 Monthly Point-in-Time Momentum Grid Backtest",
+        "# Nasdaq-100 Point-in-Time Momentum Grid Backtest vs QQQ",
         "",
-        "This project tests Nasdaq-100 average-momentum strategies using **monthly point-in-time Nasdaq-100 constituents**.",
+        "This project compares Nasdaq-100 average-momentum strategies using five momentum windows:",
         "",
-        "## Strategy Definition",
+        "- 3-month average momentum",
+        "- 4-month average momentum",
+        "- 5-month average momentum",
+        "- 6-month average momentum",
+        "- 7-month average momentum",
         "",
-        "- Monthly decision date: first available trading day of each calendar month.",
-        "- Universe: Nasdaq-100 constituents effective on that decision date, reconstructed from the current Wikipedia Nasdaq-100 list and the component-change table.",
-        "- Momentum: average of the previous N one-month returns, using month-start adjusted prices.",
-        "- Momentum windows tested: 3, 4, 5, 6, and 7 months.",
-        "- Portfolios tested: Top 1, Top 2, and Top 3 stocks by momentum.",
-        "- Holding periods tested: 1M, 2M, and 3M.",
-        "- Yearly returns use non-overlapping compounding paths.",
+        "For each momentum window, the project tests:",
+        "",
+        "- Top 1 / Top 2 / Top 3 selected stocks",
+        "- 1 / 2 / 3 month holding periods",
+        "- Monthly decisions from 2016 to the latest available completed holding period",
+        "",
+        "The README is automatically regenerated from the CSV outputs. For each momentum window, the README shows:",
+        "",
+        "1. Backtest Yearly Compounded Returns",
+        "2. Benchmark Comparison Summary vs QQQ",
+        "3. Summary",
+        "4. Latest Top-3 Monthly Selections",
+        "",
+        "The full monthly decision-level data is saved in `output/momentum_grid_detail.csv`.",
+        "",
+        f"Last updated: **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}**",
+        "",
+        "## Method",
+        "",
+        "- Stock universe: monthly point-in-time Nasdaq-100 constituents",
+        "- Decision date: first available trading day of each month",
+        "- Momentum definition: average of the previous N one-month returns based on month-start adjusted close prices",
+        "- Momentum windows: 3 / 4 / 5 / 6 / 7 months",
+        "- Buy price: adjusted close on the decision date",
+        "- Sell price: adjusted close on the first trading day after the selected holding period",
+        "- Portfolio return: equal-weighted average return of the selected stocks",
+        "- Yearly compounded return: non-overlapping compounding path starting from January",
         "",
         "## Universe Rule",
         "",
