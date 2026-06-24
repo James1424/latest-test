@@ -1,6 +1,4 @@
-from pathlib import Path
-
-code = r'''from __future__ import annotations
+from __future__ import annotations
 
 from datetime import datetime, timezone
 
@@ -132,15 +130,6 @@ def format_benchmark_comparison(comp: pd.DataFrame, window: int) -> str:
 
 
 def format_latest_selection(detail: pd.DataFrame, window: int) -> str:
-    """
-    Show the latest Top-3 ranking components.
-
-    Top 1 / Top 2 / Top 3 are the rank-1, rank-2, rank-3 stocks
-    in the monthly momentum ranking.
-
-    For each ranked stock, this table shows the realized 1M / 2M / 3M
-    individual stock returns from the same decision date.
-    """
     sub = detail[
         (detail["momentum_window"] == window)
         & (detail["top_n"] == 3)
@@ -152,8 +141,6 @@ def format_latest_selection(detail: pd.DataFrame, window: int) -> str:
 
     key_cols = ["decision_month", "decision_date"]
 
-    # Use 1M rows as the base because the ranking/momentum fields are identical
-    # across 1M, 2M, and 3M holding-period variants for the same decision date.
     base = (
         sub[sub["holding_months"] == 1]
         .sort_values("decision_date")
@@ -177,7 +164,6 @@ def format_latest_selection(detail: pd.DataFrame, window: int) -> str:
         ]
     ].copy()
 
-    # Merge individual stock returns for 1M, 2M, and 3M holding periods.
     for h in [1, 2, 3]:
         ret = sub[sub["holding_months"] == h][
             key_cols
@@ -406,7 +392,7 @@ def main() -> None:
             "**Interpretation note.** This point-in-time version can differ from a static-current-universe "
             "backtest. If a stock was added to the Nasdaq-100 after a decision date, it is excluded "
             "from that month even if it has strong momentum. This avoids look-ahead bias, but it also "
-            "means results will not exactly match older projects that used today’s Nasdaq-100 list for "
+            "means results will not exactly match older projects that used today's Nasdaq-100 list for "
             "all historical months."
         ),
         "",
@@ -439,16 +425,9 @@ def main() -> None:
         "",
     ]
 
-    content = "\n".join(content_parts)
-    README_FILE.write_text(content, encoding="utf-8")
-
+    README_FILE.write_text("\n".join(content_parts), encoding="utf-8")
     print(f"Updated {README_FILE}")
 
 
 if __name__ == "__main__":
     main()
-'''
-
-path = Path("/mnt/data/update_readme.py")
-path.write_text(code, encoding="utf-8")
-print(path)
