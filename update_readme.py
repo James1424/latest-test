@@ -3,7 +3,6 @@ from __future__ import annotations
 import pandas as pd
 
 from config import (
-    BACKTEST_START,
     BENCHMARK_COMPARISON_FILE,
     BENCHMARK_YEARLY_FILE,
     COMPONENT_CHANGES_FILE,
@@ -44,7 +43,6 @@ def format_yearly_table(yearly: pd.DataFrame, window: int) -> str:
 
     current_year = sub["Year"].max()
     sub["Year"] = sub["Year"].apply(lambda y: f"{int(y)} (YTD)" if y == current_year else int(y))
-
     return df_to_markdown(sub)
 
 
@@ -53,7 +51,6 @@ def format_summary(summary: pd.DataFrame, window: int) -> str:
     if sub.empty:
         return "_No summary data available._"
 
-    # Removed "trades" from README display.
     sub = sub.drop(columns=["momentum_window", "trades"], errors="ignore")
 
     sub = sub.rename(
@@ -86,7 +83,6 @@ def format_benchmark_comparison(comp: pd.DataFrame, window: int) -> str:
     if sub.empty:
         return "_No benchmark comparison available._"
 
-    # Removed "years" from README display.
     sub = sub.drop(columns=["momentum_window", "years"], errors="ignore")
 
     sub = sub.rename(
@@ -210,32 +206,35 @@ def window_section(
     summary: pd.DataFrame,
     detail: pd.DataFrame,
 ) -> str:
-    return f"""## {window}-Month Momentum Strategy
-
-### Backtest Yearly Compounded Returns
-
-The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.
-
-{format_yearly_table(yearly, window)}
-
-### Benchmark Comparison Summary vs QQQ
-
-This table compares each strategy combination with QQQ using the same non-overlapping holding-period path.
-
-{format_benchmark_comparison(comp, window)}
-
-### Summary
-
-{format_summary(summary, window)}
-
-### Latest Top-3 Monthly Selections
-
-This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.
-
-{format_latest_selection(detail, window)}
-
-_Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._
-"""
+    parts = [
+        f"## {window}-Month Momentum Strategy",
+        "",
+        "### Backtest Yearly Compounded Returns",
+        "",
+        "The table below uses non-overlapping compounding paths starting from January. Hold 1M compounds monthly decisions Jan through Dec, Hold 2M compounds Jan/Mar/May/Jul/Sep/Nov decisions, and Hold 3M compounds Jan/Apr/Jul/Oct decisions. The current year is labelled YTD when it is incomplete.",
+        "",
+        format_yearly_table(yearly, window),
+        "",
+        "### Benchmark Comparison Summary vs QQQ",
+        "",
+        "This table compares each strategy combination with QQQ using the same non-overlapping holding-period path.",
+        "",
+        format_benchmark_comparison(comp, window),
+        "",
+        "### Summary",
+        "",
+        format_summary(summary, window),
+        "",
+        "### Latest Top-3 Monthly Selections",
+        "",
+        "This table follows the same compact display style as the previous project: it only shows the latest Top-3 monthly selections, their momentum values, and the realized 1M holding returns.",
+        "",
+        format_latest_selection(detail, window),
+        "",
+        "_Note: The ranking is still recomputed using the Nasdaq-100 universe effective at each decision date. Universe audit fields are kept in `output/momentum_grid_detail.csv`, but are intentionally omitted here to keep the README readable._",
+        "",
+    ]
+    return "\n".join(parts)
 
 
 def main() -> None:
@@ -248,40 +247,64 @@ def main() -> None:
 
     sections = "\n".join(window_section(w, yearly, comp, summary, detail) for w in MOMENTUM_WINDOWS)
 
-    content = f"""# Nasdaq-100 Monthly Point-in-Time Momentum Grid Backtest
+    content_parts = [
+        "# Nasdaq-100 Monthly Point-in-Time Momentum Grid Backtest",
+        "",
+        "This project tests Nasdaq-100 average-momentum strategies using **monthly point-in-time Nasdaq-100 constituents**.",
+        "",
+        "## Strategy Definition",
+        "",
+        "- Monthly decision date: first available trading day of each calendar month.",
+        "- Universe: Nasdaq-100 constituents effective on that decision date, reconstructed from the current Wikipedia Nasdaq-100 list and the component-change table.",
+        "- Momentum: average of the previous N one-month returns, using month-start adjusted prices.",
+        "- Momentum windows tested: 3, 4, 5, 6, and 7 months.",
+        "- Portfolios tested: Top 1, Top 2, and Top 3 stocks by momentum.",
+        "- Holding periods tested: 1M, 2M, and 3M.",
+        "- Yearly returns use non-overlapping compounding paths.",
+        "",
+        "## Universe Rule",
+        "",
+        "At every decision date, the project reconstructs the Nasdaq-100 list that was effective at that date and recomputes the momentum ranking only inside that universe.",
+        "",
+        "If a component change happens after a monthly decision date, that change is not used until the next monthly decision. For example, if the index changes on May 18, the May 1 decision still uses the May 1 universe, while the June 1 decision uses the updated universe.",
+        "",
+        f"Data source for constituents and component changes: `{WIKI_URL}`.",
+        "",
+        "**Interpretation note.** This point-in-time version can differ from a static-current-universe backtest. If a stock was added to the Nasdaq-100 after a decision date, it is excluded from that month even if it has strong momentum. This avoids look-ahead bias, but it also means results will not exactly match older projects that used today’s Nasdaq-100 list for all historical months.",
+        "",
+        format_data_audit(),
+        "",
+        "## QQQ Benchmark Yearly Compounded Returns",
+        "",
+        format_qqq_table(qqq),
+        "",
+        sections,
+        "",
+        "## How to Run",
+        "",
+        "```bash",
+        "pip install -r requirements.txt",
+        "python run_all.py",
+        "```",
+        "",
+        "Generated outputs are saved in `output/`.",
+        "",
+        "Important output files:",
+        "",
+        "- `data/nasdaq100_current_tickers.csv`: current Nasdaq-100 list downloaded from Wikipedia.",
+        "- `data/nasdaq100_component_changes.csv`: component changes parsed from Wikipedia.",
+        "- `data/nasdaq100_all_historical_tickers.csv`: all current, added, and removed tickers used for price downloads.",
+        "- `output/momentum_grid_detail.csv`: full monthly selections, effective universe date, selected stocks, momentum, and holding returns.",
+        "- `output/yearly_compounded_returns.csv`: annual compounded return table for all 3/4/5/6/7-month momentum windows.",
+        "- `output/momentum_grid_summary.csv`: strategy summary statistics.",
+        "- `output/benchmark_comparison_summary.csv`: QQQ comparison summary.",
+        "",
+    ]
 
-This project tests Nasdaq-100 average-momentum strategies using **monthly point-in-time Nasdaq-100 constituents**.
+    content = "\n".join(content_parts)
+    README_FILE.write_text(content, encoding="utf-8")
+    print(f"Updated {README_FILE}")
 
-## Strategy Definition
 
-- Monthly decision date: first available trading day of each calendar month.
-- Universe: Nasdaq-100 constituents effective on that decision date, reconstructed from the current Wikipedia Nasdaq-100 list and the component-change table.
-- Momentum: average of the previous N one-month returns, using month-start adjusted prices.
-- Momentum windows tested: 3, 4, 5, 6, and 7 months.
-- Portfolios tested: Top 1, Top 2, and Top 3 stocks by momentum.
-- Holding periods tested: 1M, 2M, and 3M.
-- Yearly returns use non-overlapping compounding paths.
-
-## Universe Rule
-
-At every decision date, the project reconstructs the Nasdaq-100 list that was effective at that date and recomputes the momentum ranking only inside that universe.
-
-If a component change happens after a monthly decision date, that change is not used until the next monthly decision. For example, if the index changes on May 18, the May 1 decision still uses the May 1 universe, while the June 1 decision uses the updated universe.
-
-Data source for constituents and component changes: `{WIKI_URL}`.
-
-**Interpretation note.** This point-in-time version can differ from a static-current-universe backtest. If a stock was added to the Nasdaq-100 after a decision date, it is excluded from that month even if it has strong momentum. This avoids look-ahead bias, but it also means results will not exactly match older projects that used today’s Nasdaq-100 list for all historical months.
-
-{format_data_audit()}
-
-## QQQ Benchmark Yearly Compounded Returns
-
-{format_qqq_table(qqq)}
-
-{sections}
-
-## How to Run
-
-```bash
-pip install -r requirements.txt
-python run_all.py
+if __name__ == "__main__":
+    main()
